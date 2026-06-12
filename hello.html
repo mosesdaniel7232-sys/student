@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moses Daniel Christopher D | Portfolio</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        
+        body {
+            background: #f5f7ff;
+            color: #333;
+            line-height: 1.6;
+        }
+        /* Header */
+        
+        header {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: white;
+            text-align: center;
+            padding: 80px 20px;
+        }
+        
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 25px;
+            background: white;
+            color: #4f46e5;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: .3s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+        }
+        /* Sections */
+        
+        section {
+            max-width: 1100px;
+            margin: auto;
+            padding: 60px 20px;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 40px;
+            color: #4f46e5;
+        }
+        /* About */
+        
+        .about {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+        /* Skills */
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+        
+        .skill-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: .3s;
+        }
+        
+        .skill-card:hover {
+            transform: translateY(-8px);
+        }
+        
+        .skill-card h3 {
+            color: #4f46e5;
+            margin-bottom: 10px;
+        }
+        /* Projects */
+        
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .project-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        .project-content {
+            padding: 20px;
+        }
+        
+        .project-card h3 {
+            color: #4f46e5;
+            margin-bottom: 10px;
+        }
+        /* Contact */
+        
+        .contact {
+            text-align: center;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #1e1e2f;
+            color: white;
+        }
+        
+        @media(max-width:768px) {
+            header h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Hero Section -->
+    <header>
+        <h1>Moses Daniel Christopher D</h1>
+        <p>Third Year BCA Student | TBML College</p>
+        <p>App Developer • HTML Developer • Python Programmer • Java Learner</p>
+        <a href="#contact" class="btn">Contact Me</a>
+    </header>
+
+    <!-- About -->
+    <section>
+        <h2 class="section-title">About Me</h2>
+        <div class="about">
+            <p>
+                Hello! I'm <strong>Moses Daniel Christopher D</strong>, a passionate Third Year BCA student from TBML College. I enjoy building modern web applications, developing apps, and exploring new technologies. My goal is to improve my programming
+                skills and create useful digital solutions.
+            </p>
+        </div>
+    </section>
+
+    <!-- Skills -->
+    <section>
+        <h2 class="section-title">Skills</h2>
+
+        <div class="skills-grid">
+            <div class="skill-card">
+                <h3>HTML & CSS</h3>
+                <p>Building responsive and attractive websites.</p>
+            </div>
+
+            <div class="skill-card">
+                <h3>Python</h3>
+                <p>Programming, automation, and problem-solving.</p>
+            </div>
+
+            <div class="skill-card">
+                <h3>Java</h3>
+                <p>Object-oriented programming and application development.</p>
+            </div>
+
+            <div class="skill-card">
+                <h3>App Development</h3>
+                <p>Creating simple and useful mobile applications.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects -->
+    <section>
+        <h2 class="section-title">Projects</h2>
+
+        <div class="projects">
+
+            <div class="project-card">
+                <div class="project-content">
+                    <h3>Student Management App</h3>
+                    <p>
+                        A simple application for managing student records, attendance, and academic details.
+                    </p>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-content">
+                    <h3>Personal Portfolio</h3>
+                    <p>
+                        A responsive portfolio website showcasing skills, education, and projects.
+                    </p>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-content">
+                    <h3>Python Utility Tool</h3>
+                    <p>
+                        A Python-based tool for performing useful automation tasks.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Education -->
+    <section>
+        <h2 class="section-title">Education</h2>
+
+        <div class="about">
+            <h3>TBML College</h3>
+            <p>Bachelor of Computer Applications (BCA)</p>
+            <p>Currently studying in Third Year.</p>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+        <h2 class="section-title">Contact</h2>
+
+        <div class="contact">
+            <h3>Let's Connect</h3>
+            <p>Email: your-email@example.com</p>
+            <p>Phone: +91 XXXXX XXXXX</p>
+            <p>Available for learning, collaboration, and projects.</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 Moses Daniel Christopher D | Student Portfolio</p>
+    </footer>
+
+</body>
+
+</html>
