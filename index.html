@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura Weather - Premium Forecast Dashboard</title>
+    <!-- Google Fonts - Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- CSS Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="weather-default">
+    <div class="backdrop-gradient"></div>
+
+    <div class="app-container">
+        <!-- HEADER / NAVBAR -->
+        <header class="app-header glass-panel">
+            <div class="logo-area">
+                <i data-lucide="cloud-sun" class="logo-icon"></i>
+                <h1>Aura<span>Weather</span></h1>
+            </div>
+
+            <div class="search-area">
+                <div class="search-bar-container">
+                    <i data-lucide="search" class="search-icon"></i>
+                    <input type="text" id="city-search" placeholder="Search for cities..." autocomplete="off">
+                    <div id="search-spinner" class="spinner hidden"></div>
+                    <button id="clear-search" class="clear-btn hidden">
+                        <i data-lucide="x"></i>
+                    </button>
+                </div>
+                <!-- Autocomplete Dropdown -->
+                <div id="autocomplete-dropdown" class="autocomplete-dropdown glass-panel hidden"></div>
+            </div>
+
+            <div class="controls-area">
+                <!-- Unit Switcher -->
+                <div class="unit-toggle-container">
+                    <button id="unit-c" class="unit-btn active">°C</button>
+                    <button id="unit-f" class="unit-btn">°F</button>
+                </div>
+                <!-- Favorite Toggle -->
+                <button id="toggle-favorite-btn" class="icon-btn favorite-toggle-btn" title="Add to favorites">
+                    <i data-lucide="heart" class="favorite-icon"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- MAIN LAYOUT -->
+        <main class="dashboard-grid">
+            <!-- LEFT COLUMN: MAIN WEATHER INFO -->
+            <section class="main-info-column">
+                <!-- Hero Current Weather Card -->
+                <div class="hero-weather-card glass-panel animate-fade-in">
+                    <div class="hero-top">
+                        <div class="location-details">
+                            <h2 id="current-city">Loading...</h2>
+                            <p id="current-date">-- -- ----</p>
+                        </div>
+                        <div id="weather-badge" class="weather-badge">
+                            <span id="weather-description">Clear Sky</span>
+                        </div>
+                    </div>
+
+                    <div class="hero-middle">
+                        <div class="temp-display-container">
+                            <span id="current-temp" class="large-temp">--</span>
+                            <span class="temp-unit">°</span>
+                        </div>
+                        <div class="weather-art-container">
+                            <i id="main-weather-icon" data-lucide="sun" class="main-icon"></i>
+                        </div>
+                    </div>
+
+                    <div class="hero-bottom">
+                        <div class="temp-range">
+                            <span class="range-label">L: </span><span id="hero-low-temp">--°</span>
+                            <span class="range-separator">|</span>
+                            <span class="range-label">H: </span><span id="hero-high-temp">--°</span>
+                        </div>
+                        <div class="weather-phrase-container">
+                            <span id="weather-feels-like-phrase">Feels like --°</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Weather Trends Chart -->
+                <div class="trends-card glass-panel animate-fade-in delay-200">
+                    <div class="card-header">
+                        <h3><i data-lucide="trending-up"></i> Weather Trends (24h)</h3>
+                        <div class="chart-toggles">
+                            <button id="chart-temp-btn" class="chart-tab active">Temperature</button>
+                            <button id="chart-rain-btn" class="chart-tab">Precipitation %</button>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="trendsChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Detailed Metrics Grid -->
+                <div class="metrics-grid">
+                    <!-- Feels Like -->
+                    <div class="metric-card glass-panel animate-fade-in delay-100">
+                        <div class="metric-header">
+                            <i data-lucide="thermometer"></i>
+                            <h4>Feels Like</h4>
+                        </div>
+                        <div class="metric-body">
+                            <span id="metric-feels-like" class="metric-value">--°</span>
+                        </div>
+                        <div class="metric-footer">
+                            <span id="metric-feels-like-desc">Similar to the actual temp.</span>
+                        </div>
+                    </div>
+
+                    <!-- Humidity -->
+                    <div class="metric-card glass-panel animate-fade-in delay-100">
+                        <div class="metric-header">
+                            <i data-lucide="droplets"></i>
+                            <h4>Humidity</h4>
+                        </div>
+                        <div class="metric-body">
+                            <span id="metric-humidity" class="metric-value">--%</span>
+                        </div>
+                        <div class="metric-footer">
+                            <span id="metric-humidity-desc">The dew point is -- right now.</span>
+                        </div>
+                    </div>
+
+                    <!-- Wind Speed -->
+                    <div class="metric-card glass-panel animate-fade-in delay-100">
+                        <div class="metric-header">
+                            <i data-lucide="wind"></i>
+                            <h4>Wind</h4>
+                        </div>
+                        <div class="metric-body">
+                            <span id="metric-wind" class="metric-value">-- km/h</span>
+                        </div>
+                        <div class="metric-footer">
+                            <span id="metric-wind-dir">Direction: --</span>
+                        </div>
+                    </div>
+
+                    <!-- UV Index -->
+                    <div class="metric-card glass-panel animate-fade-in delay-100">
+                        <div class="metric-header">
+                            <i data-lucide="sun"></i>
+                            <h4>UV Index</h4>
+                        </div>
+                        <div class="metric-body">
+                            <span id="metric-uv" class="metric-value">--</span>
+                        </div>
+                        <div class="metric-footer">
+                            <span id="metric-uv-desc">Low exposure level.</span>
+                        </div>
+                    </div>
+
+                    <!-- Pressure -->
+                    <div class="metric-card glass-panel animate-fade-in delay-100">
+                        <div class="metric-header">
+                            <i data-lucide="gauge"></i>
+                            <h4>Pressure</h4>
+                        </div>
+                        <div class="metric-body">
+                            <span id="metric-pressure" class="metric-value">---- hPa</span>
+                        </div>
+                        <div class="metric-footer">
+                            <span id="metric-pressure-desc">Standard atmospheric level.</span>
+                        </div>
+                    </div>
+
+                    <!-- Sun Cycle -->
+                    <div class="metric-card glass-panel animate-fade-in delay-100">
+                        <div class="metric-header">
+                            <i data-lucide="sunrise"></i>
+                            <h4>Sunrise & Sunset</h4>
+                        </div>
+                        <div class="metric-body sun-cycle-body">
+                            <div class="sun-time">
+                                <i data-lucide="arrow-up-right" class="sun-icon rise"></i>
+                                <div>
+                                    <span class="label">Sunrise</span>
+                                    <span id="metric-sunrise" class="value">--:--</span>
+                                </div>
+                            </div>
+                            <div class="sun-time">
+                                <i data-lucide="arrow-down-left" class="sun-icon set"></i>
+                                <div>
+                                    <span class="label">Sunset</span>
+                                    <span id="metric-sunset" class="value">--:--</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- RIGHT COLUMN: FORECASTS AND SAVED CITIES -->
+            <section class="sidebar-column">
+                <!-- Hourly Forecast -->
+                <div class="hourly-card glass-panel animate-fade-in delay-200">
+                    <div class="card-header">
+                        <h3><i data-lucide="clock"></i> Hourly Forecast</h3>
+                    </div>
+                    <div id="hourly-list" class="hourly-list">
+                        <!-- Dynamic items go here -->
+                        <div class="hourly-skeleton">Loading...</div>
+                    </div>
+                </div>
+
+                <!-- 5-Day Weekly Forecast -->
+                <div class="weekly-card glass-panel animate-fade-in delay-200">
+                    <div class="card-header">
+                        <h3><i data-lucide="calendar"></i> 5-Day Forecast</h3>
+                    </div>
+                    <div id="weekly-list" class="weekly-list">
+                        <!-- Dynamic items go here -->
+                        <div class="weekly-skeleton">Loading...</div>
+                    </div>
+                </div>
+
+                <!-- Saved Cities / Favorites -->
+                <div class="favorites-card glass-panel animate-fade-in delay-300">
+                    <div class="card-header">
+                        <h3><i data-lucide="heart" class="filled-heart"></i> Saved Locations</h3>
+                    </div>
+                    <div id="favorites-list" class="favorites-list">
+                        <p class="empty-fav-message">No saved locations yet. Tap the heart icon on any city to save it.
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- JavaScript Bundle -->
+    <script src="app.js"></script>
+</body>
+
+</html>
